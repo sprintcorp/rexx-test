@@ -83,7 +83,7 @@
                             <button type="submit" name="submit" class="btn btn-info mt-4">Search</button>
                         </div>
                         <div class="col-md-1">
-                            <a href="product.php?filter=false" class="btn btn-danger mt-4">Clear</a>
+                            <a href="index.php?filter=false" class="btn btn-danger mt-4">Clear</a>
                         </div>
                     </div>
                 </form>
@@ -105,6 +105,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php if(count($sales) > 0){?>
                     <?php foreach($sales as $key=> $row){ ?>
                     <tr>
                         <th scope="row"><?=++$key?></th>
@@ -115,6 +116,8 @@
                         <td><?=$row["product_price"]?></td>
                         <td><?=$row["sale_date"]?></td>
                     </tr>
+                    <?php }}else{?>
+                        <tr><td>No Data Available</td></tr>
                     <?php }?>
                     <tr>
                         <th scope="col"></th>

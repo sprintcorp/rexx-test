@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 class DbConfig 
 {    
     private $_host = 'localhost';

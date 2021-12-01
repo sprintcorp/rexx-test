@@ -19,5 +19,4 @@ $template->products = $action->fetch_column('product_name');
 $template->customers = $action->fetch_column('customer_name');
 $template->prices = $action->fetch_column('product_price');
 echo $template;
-
 ?>
