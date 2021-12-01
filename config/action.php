@@ -32,30 +32,53 @@ VALUES (?, ?, ?, ?, ?, ?)';
 
     }
 
-    public function browse($table_name, $where_condition)  
-      {  
-           $condition = '';  
-           $array = array();  
-           foreach($where_condition as $key => $value)  
-           {  
-                $condition .= $key . " = '".$value."' AND ";  
-           }  
-           $condition = substr($condition, 0, -5);  
-           $query = "SELECT * FROM ".$table_name." WHERE " . $condition;  
-           $result = mysqli_query($this->connection, $query);           
-           return mysqli_fetch_assoc($result);  
-      }
+//    public function browse($table_name, $where_condition)
+//      {
+//           $condition = '';
+//           $array = array();
+//           foreach($where_condition as $key => $value)
+//           {
+//                $condition .= $key . " = '".$value."' AND ";
+//           }
+//           $condition = substr($condition, 0, -5);
+//           $query = "SELECT * FROM ".$table_name." WHERE " . $condition;
+//           $result = mysqli_query($this->connection, $query);
+//           return mysqli_fetch_assoc($result);
+//      }
    
-      public function read($table_name)  
+      public function read($filter,$price,$product,$customer)
       {  
-        $array = array();  
-        $query = "SELECT * FROM ".$table_name."";  
-        $result = mysqli_query($this->connection, $query);  
-        while($row = mysqli_fetch_assoc($result))  
-        {  
-             $array[] = $row;  
-        }  
-        return $array; 
+        $array = array();
+        if($filter == 'false') {
+            $query = "SELECT * FROM sales";
+        }else{
+
+            $query = "SELECT * FROM sales WHERE customer_name = '{$customer}' AND product_name='{$product}' AND product_price='{$price}'";
+        }
+        $result = mysqli_query($this->connection, $query);
+        if($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $array[] = $row;
+            }
+        }else{
+            $array = [];
+        }
+        $arrSum = array_sum(array_column($array, 'product_price'));
+        return ['data'=>$array,'total'=>$arrSum];
+
+      }
+
+      public function fetch_column($column)
+      {
+          $array = array();
+              $query = "SELECT ".$column." FROM sales";
+          $result = mysqli_query($this->connection, $query);
+          while($row = mysqli_fetch_assoc($result))
+          {
+              $array[] = $row;
+          }
+          $val = array_unique(array_column($array, $column));
+          return $val;
       }
     
  

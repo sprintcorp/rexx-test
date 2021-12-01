@@ -47,29 +47,25 @@
         <div class="row">
 
             <div class="col-md-12">
-                <form action="" method="post" class="mt-5">
+                <form action="app/filter.php" method="post" class="mt-5">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Product name</label>
                                 <select class="form-control" name="product_name">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <?php foreach($products as $key=> $product){ ?>
+                                    <option><?=$product?></option>
+                                    <?php }?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Customer name</label>
                                 <select class="form-control" name="customer_name">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <?php foreach($customers as $key=> $customer){ ?>
+                                        <option><?=$customer?></option>
+                                    <?php }?>
                                 </select>
                             </div>
                         </div>
@@ -77,16 +73,17 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Price</label>
                                 <select class="form-control" name="price">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <?php foreach($prices as $key=> $price){ ?>
+                                        <option><?=$price?></option>
+                                    <?php }?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-info mt-4">Search</button>
+                            <button type="submit" name="submit" class="btn btn-info mt-4">Search</button>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="product.php?filter=false" class="btn btn-danger mt-4">Clear</a>
                         </div>
                     </div>
                 </form>
@@ -119,6 +116,16 @@
                         <td><?=$row["sale_date"]?></td>
                     </tr>
                     <?php }?>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Total price</th>
+                        <th scope="col"><?=$total?></th>
+                        <th scope="col"></th>
+                    </tr>
+                    <hr>
                     </tbody>
                 </table>
             </div>
