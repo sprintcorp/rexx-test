@@ -8,19 +8,28 @@ class Action extends DbConfig
     {
         parent::__construct();
     }
-    public function create($table_name, $data)  
-    {  
-         $string = "INSERT INTO ".$table_name." (";            
-         $string .= implode(",", array_keys($data)) . ') VALUES (';            
-         $string .= "'" . implode("','", array_values($data)) . "')";  
-         if(mysqli_query($this->connection, $string))  
-         {  
-              return true;  
-         }  
-         else  
-         {  
-              echo mysqli_error($this->connection);  
-         }  
+    public function create($data)
+    {
+        $query = 'INSERT INTO sales (customer_name, customer_mail, product_id, product_name, product_price, sale_date)
+VALUES (?, ?, ?, ?, ?, ?)';
+        $insert_data = mysqli_prepare($this->connection, $query);
+
+        mysqli_stmt_bind_param($insert_data, 'ssisds', $customer_name,$customer_mail, $product_id, $product_name, $product_price, $sale_date);
+        foreach ($data as $row) {
+            $customer_name = $row["customer_name"];
+            $customer_mail = $row["customer_mail"];
+            $product_id = $row["product_id"];
+            $product_name = $row["product_name"];
+            $product_price = $row["product_price"];
+            $sale_date = $row["sale_date"];
+            mysqli_stmt_execute($insert_data);
+        }
+        if($insert_data){
+            return true;
+        }else {
+            echo mysqli_error($this->connection);
+        }
+
     }
 
     public function browse($table_name, $where_condition)  

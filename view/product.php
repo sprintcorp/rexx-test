@@ -8,6 +8,12 @@
 
 <body>
     <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mt-5"><?php displayMessage(); ?></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 d-flex justify-content-end">
                 <button type="button" class="btn btn-dark mt-5" data-toggle="modal" data-target="#exampleModalCenter">Import Json Data</button>
@@ -31,7 +37,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </form>
@@ -39,6 +45,7 @@
         </div>
 
         <div class="row">
+
             <div class="col-md-12">
                 <form action="" method="post" class="mt-5">
                     <div class="row">
@@ -92,30 +99,26 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer mail</th>
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Product price</th>
+                        <th scope="col">Sales date</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php foreach($sales as $key=> $row){ ?>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th scope="row"><?=++$key?></th>
+                        <td><?=$row["customer_name"]?></td>
+                        <td><?=$row["customer_mail"]?></td>
+                        <td><?=$row["product_id"]?></td>
+                        <td><?=$row["product_name"]?></td>
+                        <td><?=$row["product_price"]?></td>
+                        <td><?=$row["sale_date"]?></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    <?php }?>
                     </tbody>
                 </table>
             </div>
